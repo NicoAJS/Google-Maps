@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
-import { VenueLocation } from "../types";
+import { VenueLocation } from "types";
 
 interface ChainVenuesMapProps {
   venues: VenueLocation[];
