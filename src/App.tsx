@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import NearestLocation from "./components/NearestLocation";
+import ChainVenuesMap from "components/Chains/ChainVenuesMap";
 import { useLoadScript, Libraries } from "@react-google-maps/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,7 @@ function App() {
   const experienceRef = useRef<HTMLButtonElement | null>(null);
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyB8gxj6UUp1NyIL3sEAFFyuN5C-CjtLGXY",
+    googleMapsApiKey: "AIzaSyB8gxj6UUp1NyIL3sEAFFyuN5C-CjtLGXY", 
     libraries,
   });
 
@@ -56,7 +56,6 @@ function App() {
 
   function getVenueValue(i: number, name: string): string | null {
     const element = document.querySelector<HTMLInputElement>(`input[name="${name}[${i}]"]`);
-
     return element ? element.value : null;
   }
 
@@ -76,8 +75,6 @@ function App() {
     setMapVisible(!isMapVisible);
   };
 
-  const map = isLoaded && locations != null ? <NearestLocation locations={locations} /> : <div>Loading map...</div>;
-
   return (
     <div className="app-container">
       <div className="search-product">
@@ -88,7 +85,10 @@ function App() {
           {isMapVisible ? <FontAwesomeIcon icon={faCaretUp} /> : <FontAwesomeIcon icon={faCaretDown} />}
         </button>
       </div>
-      {isMapVisible && map}
+
+      {/* Display the ChainVenuesMap component */}
+      {isMapVisible && isLoaded && locations && <ChainVenuesMap venues={locations} />}
+      {!isLoaded && <div>Loading map...</div>}
     </div>
   );
 }
